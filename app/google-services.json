@@ -1,0 +1,58 @@
+{
+  "project_info": {
+    "project_number": "925961908211",
+    "firebase_url": "https://fir-rtc-7d684.firebaseio.com",
+    "project_id": "fir-rtc-7d684",
+    "storage_bucket": "fir-rtc-7d684.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925961908211:android:349a57001ab5e10885ac86",
+        "android_client_info": {
+          "package_name": "com.capstone.loginactivity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "925961908211-uhqqvcbtj63c5g9bcoa5ia8j92jc9k1c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.loginactivity",
+            "certificate_hash": "2d4ad2e99ef3ad94e6ad985bae8dc485a485d2cc"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSQ8zBrYlmnF0hsawqMiQaAmezOh6rqYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925961908211:android:4359e9644cd0282085ac86",
+        "android_client_info": {
+          "package_name": "com.capstone.videotelephony"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSQ8zBrYlmnF0hsawqMiQaAmezOh6rqYI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
