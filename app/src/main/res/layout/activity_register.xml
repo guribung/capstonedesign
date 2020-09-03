@@ -29,7 +29,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:hint="ID를 입력하세요"
+            android:hint="이메일를 입력하세요"
             android:inputType="textCapWords"
             android:padding="10dp" />
 

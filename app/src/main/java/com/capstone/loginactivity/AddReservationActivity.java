@@ -50,6 +50,9 @@ public class AddReservationActivity extends AppCompatActivity {
         Intent getintent = getIntent();
         datetime = getintent.getStringExtra("datetime");
         listitem = new ArrayList<>();
+        ArrayList<String> namelist = new ArrayList<>();
+        ArrayList<String> phonelist = new ArrayList<>();
+        ArrayList<String> uidlist = new ArrayList<>();
         DatabaseReference uDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference uRef = uDatabase.child("Users");
         firebaseAuth =  FirebaseAuth.getInstance();
@@ -87,10 +90,10 @@ public class AddReservationActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                             // TODO: handle the post
-                            userdata.setName(String.valueOf(postSnapshot.child("name").getValue(String.class)));
-                            userdata.setPhone(String.valueOf(postSnapshot.child("phone").getValue(String.class)));
-                            textB.setText(String.valueOf(postSnapshot.child("uid").getValue(String.class)));
-                            adapter.add(userdata.name+" "+userdata.phone);
+                            namelist.add(postSnapshot.child("name").getValue(String.class));
+                            phonelist.add(postSnapshot.child("phone").getValue(String.class));
+                            uidlist.add(postSnapshot.child("uid").getValue(String.class));
+                            adapter.add(postSnapshot.child("name").getValue(String.class)+" "+postSnapshot.child("phone").getValue(String.class));
                         }
                         // The user's ID, unique to the Firebase project. Do NOT use this value to
                         // authenticate with your backend server, if you have one. Use
@@ -126,12 +129,12 @@ public class AddReservationActivity extends AppCompatActivity {
                 HashMap<Object,String> hashMap = new HashMap<>();
 
                 hashMap.put("datetime",datetime);
-                hashMap.put("name",name);
-                hashMap.put("phone",phone);
+                hashMap.put("name", namelist.get(position));
+                hashMap.put("phone",phonelist.get(position));
                 hashMap.put("clinicName",textv.getText().toString());
                 hashMap.put("doctorUid",firebaseAuth.getUid());
-                hashMap.put("patientUid",textB.getText().toString());
-                ref.child(datetime+" "+textv.getText().toString()).setValue(hashMap);
+                hashMap.put("patientUid",uidlist.get(position));
+                ref.child(datetime+" "+firebaseAuth.getUid()).setValue(hashMap);
 
                 finish();
 

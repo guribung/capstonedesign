@@ -17,7 +17,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class InfoActivity extends AppCompatActivity {
-    private TextView tv_id, tv_pass, tv_name, viewEmail, viewMember, viewName;
+    private TextView tv_id, tv_pass, tv_name,tv_phone,viewPhone, viewEmail, viewMember, viewName;
     private FirebaseAuth firebaseAuth;
     private static final String TAG = "infoActivity";
     @Override
@@ -29,9 +29,11 @@ public class InfoActivity extends AppCompatActivity {
         tv_id = findViewById(R.id.tv_id);
         tv_pass = findViewById(R.id.tv_pass);
         tv_name = findViewById(R.id.tv_name);
+        tv_phone = findViewById(R.id.tv_phone);
         viewEmail = findViewById(R.id.viewEmail);
         viewMember = findViewById(R.id.viewMember);
         viewName = findViewById(R.id.viewName);
+        viewPhone = findViewById(R.id.viewPhone);
 
         firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -49,13 +51,14 @@ public class InfoActivity extends AppCompatActivity {
                     userdata.setMember(String.valueOf(postSnapshot.child("member").getValue(String.class)));
                     userdata.setName(String.valueOf(postSnapshot.child("name").getValue(String.class)));
                     userdata.setUid(String.valueOf(postSnapshot.child("uid").getValue(String.class)));
+                    userdata.setPhone(String.valueOf(postSnapshot.child("phone").getValue(String.class)));
                 }
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
                     // Name, email address, and profile photo Url
 
                     if(userdata.member.equals("의사")){
-                        viewName.setText("병원이름");
+                        viewName.setText("병원이름: ");
                     }
 
                     // The user's ID, unique to the Firebase project. Do NOT use this value to
@@ -65,6 +68,7 @@ public class InfoActivity extends AppCompatActivity {
                     tv_id.setText(userdata.email);
                     tv_pass.setText(userdata.member);
                     tv_name.setText(userdata.name);
+                    tv_phone.setText(userdata.phone);
                 }
 
             }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,8 +25,6 @@ public class AddTimeActivity extends AppCompatActivity {
 
         date = getintent.getStringExtra("date");
         final String mDate = date;
-
-        Toast.makeText(AddTimeActivity.this, "date:"+date, Toast.LENGTH_LONG).show();
 
 
         if (mTimePicker.getHour()<10) {
@@ -74,7 +71,6 @@ public class AddTimeActivity extends AppCompatActivity {
              public void onClick(View v) {
 
                  String datetime = (String) text.getText();
-                 Toast.makeText(AddTimeActivity.this, "date:"+datetime, Toast.LENGTH_LONG).show();
                  Intent intent = new Intent(AddTimeActivity.this, AddReservationActivity.class);
                  intent.putExtra("datetime",datetime);
                  startActivity(intent);

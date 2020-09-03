@@ -34,6 +34,7 @@ public class CallEndActivity extends AppCompatActivity {
         String contactId = getIntent.getStringExtra("contact");
         String[] contactArray = contactId.split("_");
         String datetime = contactArray[0].replace(" ","");
+        String doctorUid = contactArray[1];
 
         reConnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +60,8 @@ public class CallEndActivity extends AppCompatActivity {
                         for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                             // TODO: handle the post
                             connectInfo.setDatetime(postSnapshot.child("datetime").getValue(String.class).replace(" ",""));
-                            if (connectInfo.datetime.equals(datetime))
+                            connectInfo.setDocUid(postSnapshot.child("doctorUid").getValue(String.class));
+                            if (doctorUid.equals(connectInfo.docUid) && datetime.equals(connectInfo.datetime))
                                 postSnapshot.getRef().removeValue();
 
 
@@ -87,12 +89,10 @@ public class CallEndActivity extends AppCompatActivity {
                         for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                             // TODO: handle the post
                             connectInfo.setDatetime(postSnapshot.child("datetime").getValue(String.class).replace(" ",""));
-                            if (connectInfo.datetime.equals(datetime)){
-                                Toast.makeText(CallEndActivity.this,connectInfo.datetime+" "+connectInfo.datetime.length(),Toast.LENGTH_LONG).show();
+                            connectInfo.setDocUid(postSnapshot.child("doctorUid").getValue(String.class));
+                            if (doctorUid.equals(connectInfo.docUid) && datetime.equals(connectInfo.datetime)){
                                 postSnapshot.getRef().removeValue();
                             }
-                            else
-                                Toast.makeText(CallEndActivity.this, connectInfo.datetime+" "+connectInfo.datetime.length(), Toast.LENGTH_SHORT).show();
                         }
                     }
 

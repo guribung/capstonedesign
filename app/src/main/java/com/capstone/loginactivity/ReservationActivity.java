@@ -63,6 +63,7 @@ public class ReservationActivity extends AppCompatActivity {
 
             }
         });
+
         Query userQuery = ref.orderByChild("patientUid").equalTo(firebaseAuth.getUid());
 
         userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
