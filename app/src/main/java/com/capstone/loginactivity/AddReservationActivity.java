@@ -23,12 +23,20 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class AddReservationActivity extends AppCompatActivity {
     private static final String TAG = "AddReservationActivity";
+    private static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
+    private static final String SERVER_KEY = "AAAA15ehb_M:APA91bEmbU0N1n4v5gG53ApzdAQOIFgmHFuqzzSbubJEWV6YDtWEuwF1d4oGFhnORwnBsbe1lrGaLP8qKwctnsruvwZ1D6B9w0q2mNynxLJ51EJPOh5GQRKp6tIJHetuvCP2lmWCW53k";
+
     EditText putName;
     Button searchBtn;
     ListView listView;
@@ -53,6 +61,7 @@ public class AddReservationActivity extends AppCompatActivity {
         ArrayList<String> namelist = new ArrayList<>();
         ArrayList<String> phonelist = new ArrayList<>();
         ArrayList<String> uidlist = new ArrayList<>();
+        ArrayList<String> tokenlist = new ArrayList<>();
         DatabaseReference uDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference uRef = uDatabase.child("Users");
         firebaseAuth =  FirebaseAuth.getInstance();
@@ -93,6 +102,7 @@ public class AddReservationActivity extends AppCompatActivity {
                             namelist.add(postSnapshot.child("name").getValue(String.class));
                             phonelist.add(postSnapshot.child("phone").getValue(String.class));
                             uidlist.add(postSnapshot.child("uid").getValue(String.class));
+                            tokenlist.add(postSnapshot.child("token").getValue(String.class));
                             adapter.add(postSnapshot.child("name").getValue(String.class)+" "+postSnapshot.child("phone").getValue(String.class));
                         }
                         // The user's ID, unique to the Firebase project. Do NOT use this value to
@@ -119,9 +129,8 @@ public class AddReservationActivity extends AppCompatActivity {
                 TextView textView = view.findViewById(android.R.id.text1);
                 String text = textView.getText().toString();
 
-                String[] array = text.split(" ");
-                String name = array[0];
-                String phone = array[1];
+                String[] array = datetime.split(" ");
+                String restime = array[0]+"년 "+array[1]+"월 "+array[2]+"일 "+array[3]+"시 "+array[4]+"분";
 
 
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -136,8 +145,37 @@ public class AddReservationActivity extends AppCompatActivity {
                 hashMap.put("patientUid",uidlist.get(position));
                 ref.child(datetime+" "+firebaseAuth.getUid()).setValue(hashMap);
 
-                finish();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            // FMC 메시지 생성 start
+                            JSONObject root = new JSONObject();
+                            JSONObject notification = new JSONObject();
+                            notification.put("body", restime+"에 예약이 추가되었습니다");
+                            notification.put("title","예약" );
+                            root.put("notification", notification);
+                            root.put("to", tokenlist.get(position));
+                            // FMC 메시지 생성 end
 
+                            URL Url = new URL(FCM_MESSAGE_URL);
+                            HttpURLConnection conn = (HttpURLConnection) Url.openConnection();
+                            conn.setRequestMethod("POST");
+                            conn.setDoOutput(true);
+                            conn.setDoInput(true);
+                            conn.addRequestProperty("Authorization", "key=" + SERVER_KEY);
+                            conn.setRequestProperty("Accept", "application/json");
+                            conn.setRequestProperty("Content-type", "application/json");
+                            OutputStream os = conn.getOutputStream();
+                            os.write(root.toString().getBytes("utf-8"));
+                            os.flush();
+                            conn.getResponseCode();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            finish();
             }
         });
     }

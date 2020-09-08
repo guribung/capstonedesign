@@ -17,12 +17,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;
 
@@ -94,7 +97,15 @@ public class RegisterActivity extends AppCompatActivity {
                 final String email = mEmailText.getText().toString().trim();
                 String pwd = mPasswordText.getText().toString().trim();
                 String pwdcheck = mPasswordcheckText.getText().toString().trim();
-
+                final String[] token = new String[1];
+                FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( RegisterActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        String mToken = instanceIdResult.getToken();
+                        token[0] = mToken;
+                        Log.e("Token",mToken);
+                    }
+                });
 
                 if(pwd.equals(pwdcheck)) {
                     Log.d(TAG, "등록 버튼 " + email + " , " + pwd);
@@ -113,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 String name = mName.getText().toString().trim();
                                 String member = spinner.getSelectedItem().toString();
                                 String phone = mPhone.getText().toString().trim();
-
+                                String userTokken = token[0];
                                 //해쉬맵 테이블을 파이어베이스 데이터베이스에 저장
                                 HashMap<Object,String> hashMap = new HashMap<>();
 
@@ -122,6 +133,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 hashMap.put("name",name);
                                 hashMap.put("member",member);
                                 hashMap.put("phone",phone);
+                                hashMap.put("token",userTokken);
 
                                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                                 DatabaseReference reference = database.getReference("Users");

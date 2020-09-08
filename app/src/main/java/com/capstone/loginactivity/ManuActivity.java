@@ -9,6 +9,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class ManuActivity extends AppCompatActivity {
     private static final String TAG = "ManuActivity";
@@ -41,8 +44,18 @@ public class ManuActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                     // TODO: handle the post
+                    userdata.setUid(String.valueOf(postSnapshot.child("uid").getValue(String.class)));
                     userdata.setMember(String.valueOf(postSnapshot.child("member").getValue(String.class)));
                     userdata.setName(String.valueOf(postSnapshot.child("name").getValue(String.class)));
+                    FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(ManuActivity.this,  new OnSuccessListener<InstanceIdResult>() {
+                        @Override
+                        public void onSuccess(InstanceIdResult instanceIdResult) {
+                            String mToken = instanceIdResult.getToken();
+                            ref.child(userdata.uid).child("token").setValue(mToken);
+                            Log.e("Token",mToken);
+                        }
+                    });
+
                 }
                 if(userdata.member.equals("의사")){
                     addresBtn.setVisibility(View.VISIBLE);
