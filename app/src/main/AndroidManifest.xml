@@ -22,8 +22,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission
         android:name="android.permission.CAPTURE_VIDEO_OUTPUT"
         tools:ignore="ProtectedPermissions" />
@@ -36,6 +35,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".EditInfoActivity"></activity>
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
@@ -44,8 +45,7 @@
             </intent-filter>
         </service>
 
-
-        <activity android:name=".CallEndActivity"></activity>
+        <activity android:name=".CallEndActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -94,7 +94,6 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ReservationActivity" />
-
     </application>
-    </manifest>
 
+</manifest>

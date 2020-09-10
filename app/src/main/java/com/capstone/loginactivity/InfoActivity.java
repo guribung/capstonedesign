@@ -1,7 +1,10 @@
 package com.capstone.loginactivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +20,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class InfoActivity extends AppCompatActivity {
+
     private TextView tv_id, tv_pass, tv_name,tv_phone,viewPhone, viewEmail, viewMember, viewName;
+    private Button editBtn;
     private FirebaseAuth firebaseAuth;
     private static final String TAG = "infoActivity";
     @Override
@@ -34,7 +39,7 @@ public class InfoActivity extends AppCompatActivity {
         viewMember = findViewById(R.id.viewMember);
         viewName = findViewById(R.id.viewName);
         viewPhone = findViewById(R.id.viewPhone);
-
+        editBtn = findViewById(R.id.edit_btn);
         firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference ref = database.child("Users");
@@ -80,7 +85,13 @@ public class InfoActivity extends AppCompatActivity {
         });
 
 
-
+    editBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(InfoActivity.this,EditInfoActivity.class);
+            startActivity(intent);
+        }
+    });
 
     }
 }
