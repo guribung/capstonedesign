@@ -70,8 +70,8 @@ public class ConnectActivity extends Activity {
   private String keyprefRoomList;
   private ArrayList<String> roomList;
   private ArrayAdapter<String> adapter;
-  ArrayList<String> listitem;
-  FirebaseAuth firebaseAuth;
+  private ArrayList<String> listitem;
+  private FirebaseAuth firebaseAuth;
 
   final ConnectInfo connectInfo = new ConnectInfo();
   @Override

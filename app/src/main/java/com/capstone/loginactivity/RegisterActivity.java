@@ -28,13 +28,14 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
-    EditText mEmailText, mPasswordText, mPasswordcheckText, mName, mPhone;
-    Button mregisterBtn;
-    TextView textview;
+    private EditText mEmailText, mPasswordText, mPasswordcheckText, mName, mPhone;
+    private Button mregisterBtn;
+    private TextView textview;
     private FirebaseAuth firebaseAuth;
 
 
@@ -97,6 +98,11 @@ public class RegisterActivity extends AppCompatActivity {
                 final String email = mEmailText.getText().toString().trim();
                 String pwd = mPasswordText.getText().toString().trim();
                 String pwdcheck = mPasswordcheckText.getText().toString().trim();
+                String name = mName.getText().toString().trim();
+                String phone = mPhone.getText().toString().trim();
+
+                boolean name_check = Pattern.matches("^[가-힣]*$",name);
+                boolean phone_check = Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$",phone);
                 final String[] token = new String[1];
                 FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( RegisterActivity.this,  new OnSuccessListener<InstanceIdResult>() {
                     @Override
@@ -107,7 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
 
-                if(pwd.equals(pwdcheck)) {
+                if(pwd.equals(pwdcheck)||name_check||phone_check) {
                     Log.d(TAG, "등록 버튼 " + email + " , " + pwd);
 
 
@@ -158,7 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
                     //비밀번호 오류시
                 }else{
 
-                    Toast.makeText(RegisterActivity.this, "비밀번호가 틀렸습니다. 다시 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "다시 입력해 주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }

@@ -19,9 +19,9 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CallEndActivity extends AppCompatActivity {
 
-    Button reConnect, callEnd, addRes;
-    FirebaseAuth firebaseAuth;
-    final ConnectInfo connectInfo = new ConnectInfo();
+    private Button reConnect, callEnd, addRes;
+    private FirebaseAuth firebaseAuth;
+    private final ConnectInfo connectInfo = new ConnectInfo();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -37,21 +37,20 @@ public class AddReservationActivity extends AppCompatActivity {
     private static final String FCM_MESSAGE_URL = "https://fcm.googleapis.com/fcm/send";
     private static final String SERVER_KEY = "AAAA15ehb_M:APA91bEmbU0N1n4v5gG53ApzdAQOIFgmHFuqzzSbubJEWV6YDtWEuwF1d4oGFhnORwnBsbe1lrGaLP8qKwctnsruvwZ1D6B9w0q2mNynxLJ51EJPOh5GQRKp6tIJHetuvCP2lmWCW53k";
 
-    EditText putName;
-    Button searchBtn;
-    ListView listView;
-    ArrayAdapter adapter;
-    ArrayList<String> listitem;
-    TextView textv, textB,empty;
-
-    FirebaseAuth firebaseAuth;
+    private EditText putName;
+    private Button searchBtn;
+    private ListView listView;
+    private ArrayAdapter adapter;
+    private ArrayList<String> listitem;
+    private TextView textv;
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reservation);
 
         textv = findViewById(R.id.textv);
-        textB = findViewById(R.id.textB);
+
         putName = findViewById(R.id.put_name);
         searchBtn = findViewById(R.id.search_btn);
         final String datetime;
@@ -65,7 +64,6 @@ public class AddReservationActivity extends AppCompatActivity {
         DatabaseReference uDatabase = FirebaseDatabase.getInstance().getReference();
         DatabaseReference uRef = uDatabase.child("Users");
         firebaseAuth =  FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
         Query uQuery = uRef.orderByChild("uid").equalTo(firebaseAuth.getUid());
         uQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

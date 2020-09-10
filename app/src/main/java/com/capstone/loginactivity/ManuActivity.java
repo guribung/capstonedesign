@@ -22,8 +22,7 @@ import com.google.firebase.iid.InstanceIdResult;
 
 public class ManuActivity extends AppCompatActivity {
     private static final String TAG = "ManuActivity";
-    Button infoBtn, callBtn, resBtn,addresBtn;
-    String name, member, email;
+    private Button infoBtn, callBtn, resBtn,addresBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,9 +10,9 @@ import android.widget.TimePicker;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AddTimeActivity extends AppCompatActivity {
-    TimePicker mTimePicker;
-    Button button;
-    TextView text;
+    private TimePicker mTimePicker;
+    private Button button;
+    private TextView text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

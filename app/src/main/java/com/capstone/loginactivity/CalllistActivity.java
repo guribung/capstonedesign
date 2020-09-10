@@ -23,11 +23,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class CalllistActivity extends AppCompatActivity {
-    ListView listView;
-    ArrayAdapter adapter;
-    ArrayList<String> listitem;
-    FirebaseAuth firebaseAuth;
-    TextView textA,empty;
+    private ListView listView;
+    private ArrayAdapter adapter;
+    private ArrayList<String> listitem;
+    private FirebaseAuth firebaseAuth;
+    private TextView textA,empty;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

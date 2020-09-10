@@ -21,10 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
-    Button mRegBtn,mLoginBtn;
-    EditText mEmailText, mPasswordText;
+    private Button mRegBtn,mLoginBtn;
+    private EditText mEmailText, mPasswordText;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -33,21 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference myRef = rootRef.getRoot();
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.e(TAG, "onCancelled: " + error.getMessage());
-            }
-        });
 
         firebaseAuth =  FirebaseAuth.getInstance();
         //버튼 등록하기
@@ -74,20 +61,25 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = mEmailText.getText().toString().trim();
+                boolean email_check = Pattern.matches("\\w+@\\w+\\.\\w+(\\.\\w+)?",email);
                 String pwd = mPasswordText.getText().toString().trim();
-                firebaseAuth.signInWithEmailAndPassword(email,pwd)
-                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful()){
-                                    Intent intent = new Intent(LoginActivity.this, ManuActivity.class);
-                                    startActivity(intent);
+                if (email_check) {
+                    firebaseAuth.signInWithEmailAndPassword(email, pwd)
+                            .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent intent = new Intent(LoginActivity.this, ManuActivity.class);
+                                        startActivity(intent);
 
-                                }else{
-                                    Toast.makeText(LoginActivity.this,"로그인 오류",Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "로그인 오류", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
+                else
+                    Toast.makeText(LoginActivity.this, "이메일을 다시 입력해주세요", Toast.LENGTH_SHORT).show();
             }
         });
     }

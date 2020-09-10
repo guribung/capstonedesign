@@ -3,6 +3,7 @@ package com.capstone.loginactivity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +21,8 @@ import java.util.regex.Pattern;
 
 public class EditInfoActivity extends AppCompatActivity {
     private static final String TAG = "EditInfoActivity";
-EditText editEmail, editPass, chkPass, editName, editPhone;
-Button setEmail, setPass, setName, setPhone, setUp;
+    private EditText editEmail, editPass, chkPass, editName, editPhone;
+    private Button setEmail, setPass, setName, setPhone, setUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +124,8 @@ Button setEmail, setPass, setName, setPhone, setUp;
         setUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(EditInfoActivity.this, InfoActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
