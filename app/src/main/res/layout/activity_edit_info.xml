@@ -24,42 +24,18 @@
             android:layout_weight="1"
             android:id="@+id/email_btn"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="left"
         android:padding="10dp">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_password"
-            android:inputType="textPassword"
-            android:hint="변경할 비밀번호를 입력하세요"
-            android:layout_weight="100"/>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:layout_weight="1" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="left"
-        android:padding="10dp">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/chk_pass"
-            android:inputType="textPassword"
-            android:hint="비밀번호를 다시 입력하세요"
-            android:layout_weight="100" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="변경"
+            android:text="비밀번호 변경"
             android:layout_weight="1"
             android:id="@+id/pass_btn"/>
     </LinearLayout>

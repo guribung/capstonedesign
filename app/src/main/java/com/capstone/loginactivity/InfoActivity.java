@@ -90,6 +90,7 @@ public class InfoActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent intent = new Intent(InfoActivity.this,EditInfoActivity.class);
             startActivity(intent);
+            finish();
         }
     });
 
