@@ -62,17 +62,12 @@
             android:text=" 질병분류코드:"
             android:textSize="15dp"
             android:gravity="center"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:id="@+id/dis_code"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -94,6 +89,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp"
+                    android:id="@+id/PlistView"
                     android:drawSelectorOnTop="false">
 
                 </ListView>
