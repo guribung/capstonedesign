@@ -20,13 +20,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="       이름: "
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:gravity="center"
             android:id="@+id/name_label"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:gravity="center"
             android:id="@+id/name_edit"/>
     </LinearLayout>
@@ -40,13 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="주민번호: "
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:gravity="center"
             android:id="@+id/regnum_label"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:gravity="center"
             android:id="@+id/regnum_edit"/>
     </LinearLayout>
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text=" 질병분류코드:"
-            android:textSize="15dp"
+            android:textSize="10dp"
             android:gravity="center"/>
 
             <EditText
@@ -74,44 +74,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
+        android:weightSum="20"
         android:padding="10dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:layout_weight="5"
             android:gravity="center">
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
                 <ListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="10dp"
                     android:id="@+id/PlistView"
+                    android:transcriptMode="alwaysScroll"
+                    android:layout_marginBottom="30dp"
                     android:drawSelectorOnTop="false">
-
                 </ListView>
-            </ScrollView>
-
+                </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="right">
+
+            <Button
+                android:id="@+id/add_drug"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="약 추가" />
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="약 추가"
-                android:id="@+id/add_drug"/>
+                android:id="@+id/delete_drug"
+                android:text="약 삭제"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="bottom">
+            android:layout_weight="15"
+            android:gravity="center">
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

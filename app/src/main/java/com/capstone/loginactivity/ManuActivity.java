@@ -22,7 +22,7 @@ import com.google.firebase.iid.InstanceIdResult;
 
 public class ManuActivity extends AppCompatActivity {
     private static final String TAG = "ManuActivity";
-    private Button infoBtn, callBtn, resBtn,addresBtn;
+    private Button infoBtn, callBtn, resBtn,addresBtn,testBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +32,7 @@ public class ManuActivity extends AppCompatActivity {
         callBtn = findViewById(R.id.call_btn);
         resBtn = findViewById(R.id.res_btn);
         addresBtn = findViewById(R.id.addres_btn);
+        testBtn = findViewById(R.id.test_button);
 
 
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -104,6 +105,11 @@ public class ManuActivity extends AppCompatActivity {
                 startActivity(intent);
 
             }
+        });
+
+        testBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ManuActivity.this, PrescriptionActivity.class);
+            startActivity(intent);
         });
     }
 }

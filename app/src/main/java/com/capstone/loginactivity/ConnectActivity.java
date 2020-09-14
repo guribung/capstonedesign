@@ -653,7 +653,7 @@ public class ConnectActivity extends Activity {
                       .replace("년","")
                       .replace("월","")
                       .replace("일","")
-                      .replace("시","")
+                      .replace("시","")x
                       .replace("분","");*/
               connectToRoom(roomId, false, false, false, 0);
             }
