@@ -93,9 +93,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/PlistView"
-                    android:transcriptMode="alwaysScroll"
                     android:layout_marginBottom="30dp"
-                    android:drawSelectorOnTop="false">
+                    android:drawSelectorOnTop="false"
+                    android:descendantFocusability="afterDescendants">
                 </ListView>
                 </LinearLayout>
         </LinearLayout>
@@ -110,11 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="약 추가" />
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/delete_drug"
-                android:text="약 삭제"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

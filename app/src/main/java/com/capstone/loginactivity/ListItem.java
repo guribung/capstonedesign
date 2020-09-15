@@ -1,19 +1,40 @@
 package com.capstone.loginactivity;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 
 public class ListItem {
-    private boolean check;
     private String medicine;
     private String dayDosage;
     private String timeDosage;
     private String freq;
     private String sum;
     private Context context;
+    public TextWatcher textWatcher;
+    public String mName, mValue;
+    public void ListItem(){
+        mValue = "";
+        textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    public void setCheck(boolean check){
-        this.check = check;
-    }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mValue = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+    };
+
+
+
     public void setMedicine(String medicine){
         this.medicine = medicine;
     }
@@ -28,9 +49,7 @@ public class ListItem {
     public void setSum(String sum){
         this.sum = sum;
     }
-    public Boolean getCheck(){
-        return this.check;
-    }
+
     public String getMedicine(){
         return this.medicine;
     }
@@ -49,4 +68,5 @@ public class ListItem {
     public String getSum(){
         return this.sum;
     }
+
 }

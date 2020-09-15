@@ -47,7 +47,8 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity android:name=".PrescriptionActivity"/>
+        <activity android:name=".PrescriptionActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".EditInfoActivity" />
 
         <service

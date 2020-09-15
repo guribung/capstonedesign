@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +34,8 @@ public class FirebaseRTCClient implements AppRTCClient, ValueEventListener {
     private DatabaseReference database;
     private SignalingEvents events;
     private String myId;
-
+    private String roomId;
+    private FirebaseAuth firebaseAuth;
     private boolean is_initiator = false;
 
     ValueEventListener sdpeventsListener = null;
@@ -45,10 +47,11 @@ public class FirebaseRTCClient implements AppRTCClient, ValueEventListener {
 
     private Hashtable<String, Boolean> sdpAdded = new Hashtable<String, Boolean>();
 
-    public FirebaseRTCClient(SignalingEvents events) {
+    public FirebaseRTCClient(SignalingEvents events,String roomId) {
+        firebaseAuth =  FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();
         this.events = events;
-
+        this.roomId = roomId;
         final HandlerThread handlerThread = new HandlerThread(TAG);
         handlerThread.start();
         handler = new Handler(handlerThread.getLooper());
@@ -61,8 +64,8 @@ public class FirebaseRTCClient implements AppRTCClient, ValueEventListener {
             is_initiator = true;
         }
 
-        if (!dataSnapshot.hasChild(myId)) {
-            database.child("/channels/firebase").child(myId).child("connected").setValue(true);
+        if (!dataSnapshot.hasChild(roomId)) {
+            database.child("/channels/firebase").child(roomId).child("connected").setValue(true);
             //Connected
             handler.post(() -> {
                 List<PeerConnection.IceServer> iceServerList = null;
@@ -93,7 +96,7 @@ public class FirebaseRTCClient implements AppRTCClient, ValueEventListener {
             while (children.hasNext()) {
                 DataSnapshot child = children.next();
 
-                if (child.getKey() != myId) {
+                if (child.getKey() != roomId) {
                     if (child.hasChild("sdp")) {
                         child.getChildren();
                         final SessionDescription sdp = getSdp(child.child("sdp"));
@@ -147,13 +150,13 @@ public class FirebaseRTCClient implements AppRTCClient, ValueEventListener {
     @Override
     public void sendOfferSdp(SessionDescription sdp) {
         Log.d(TAG, "send offer sdp");
-        database.child("/channels/firebase").child(myId).child("sdp").setValue(sdp);
+        database.child("/channels/firebase").child(roomId).child("sdp").setValue(sdp);
     }
 
     @Override
     public void sendAnswerSdp(SessionDescription sdp) {
         Log.d(TAG, "send answer sdp");
-        database.child("/channels/firebase").child(myId).child("sdp").setValue(sdp);
+        database.child("/channels/firebase").child(roomId).child("sdp").setValue(sdp);
     }
 
     private IceCandidate getIceCandidate(DataSnapshot db) {
@@ -167,7 +170,7 @@ public class FirebaseRTCClient implements AppRTCClient, ValueEventListener {
     @Override
     public void sendLocalIceCandidate(IceCandidate candidate) {
         Log.d(TAG, "send local ice candidate: " + candidate);
-        database.child("/channels/firebase").child(myId).child("icecandidate").child("" + candidate.hashCode()).setValue(candidate);
+        database.child("/channels/firebase").child(roomId).child("icecandidate").child("" + candidate.hashCode()).setValue(candidate);
     }
 
     @Override
@@ -175,14 +178,14 @@ public class FirebaseRTCClient implements AppRTCClient, ValueEventListener {
         Log.d(TAG, "send local ice candidate removal");
 
         for (IceCandidate candidate : candidates) {
-            database.child("/channels/firebase").child(myId).child("icecandidate").child("" + candidate.hashCode()).removeValue();
+            database.child("/channels/firebase").child(roomId).child("icecandidate").child("" + candidate.hashCode()).removeValue();
         }
     }
 
     @Override
     public void disconnectFromRoom() {
         Log.d(TAG, "disconnect from room");
-        database.child("/channels/firebase").child(myId).removeValue();
+        database.child("/channels/firebase").child(roomId).removeValue();
         //database.child("/channels/firebase").child("disconnect").setValue(true);
         database.child("/channels/firebase").removeEventListener(this);
         sdpAdded.clear();

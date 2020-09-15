@@ -73,7 +73,7 @@ public class ConnectActivity extends Activity {
   private ArrayList<String> listitem;
   private FirebaseAuth firebaseAuth;
 
-  final ConnectInfo connectInfo = new ConnectInfo();
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -92,15 +92,28 @@ public class ConnectActivity extends Activity {
     keyprefRoomList = getString(R.string.pref_room_list_key);
 
     setContentView(R.layout.activity_connect);
-
+    ArrayList<String> dateTime = new ArrayList<>();
+    ArrayList<String> docUid = new ArrayList<>();
     roomListView = findViewById(R.id.room_listview);
     roomListView.setEmptyView(findViewById(android.R.id.empty));
-    roomListView.setOnItemClickListener(roomListClickListener);
+    roomListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      @Override
+      public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        String roomId = dateTime.get(i) + "_" + docUid.get(i);
+              /*String roomId = ((TextView) view).getText().toString().replace(" ","")
+                      .replace("년","")
+                      .replace("월","")
+                      .replace("일","")
+                      .replace("시","")x
+                      .replace("분","");*/
+        connectToRoom(roomId, false, false, false, 0);
+      }
+    });
     registerForContextMenu(roomListView);
 
 
     listitem = new ArrayList<>();
-    adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listitem);
+    adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listitem);
     roomListView.setAdapter(adapter);
 
     firebaseAuth = FirebaseAuth.getInstance();
@@ -112,13 +125,15 @@ public class ConnectActivity extends Activity {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
           // TODO: handle the post
-          connectInfo.setDatetime(postSnapshot.child("datetime").getValue(String.class).replace(" ",""));
-          connectInfo.setDocUid(postSnapshot.child("doctorUid").getValue(String.class));
+          int i = 0;
+          dateTime.add(postSnapshot.child("datetime").getValue(String.class).replace(" ", ""));
+          docUid.add(postSnapshot.child("doctorUid").getValue(String.class));
           String[] reservation = postSnapshot.child("datetime").getValue(String.class).split(" ");
-          String name =  postSnapshot.child("name").getValue(String.class);
-          adapter.add(reservation[0]+"년 "+reservation[1]+"월 "+reservation[2]+"일 "+reservation[3]+"시 "+reservation[4]+"분 "+name);
+          String name = postSnapshot.child("name").getValue(String.class);
+          adapter.add(reservation[0] + "년 " + reservation[1] + "월 " + reservation[2] + "일 " + reservation[3] + "시 " + reservation[4] + "분 " + name);
+          i++;
         }
         adapter.notifyDataSetChanged();
       }
@@ -134,13 +149,15 @@ public class ConnectActivity extends Activity {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-        for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
           // TODO: handle the post
-          connectInfo.setDatetime(postSnapshot.child("datetime").getValue(String.class).replace(" ",""));
-          connectInfo.setDocUid(postSnapshot.child("doctorUid").getValue(String.class));
+          int i = 0;
+          dateTime.add(postSnapshot.child("datetime").getValue(String.class).replace(" ", ""));
+          docUid.add(postSnapshot.child("doctorUid").getValue(String.class));
           String[] reservation = postSnapshot.child("datetime").getValue(String.class).split(" ");
-          String clinicName =  postSnapshot.child("clinicName").getValue(String.class);
-          adapter.add(reservation[0]+"년 "+reservation[1]+"월 "+reservation[2]+"일 "+reservation[3]+"시 "+reservation[4]+"분 "+clinicName);
+          String clinicName = postSnapshot.child("clinicName").getValue(String.class);
+          adapter.add(reservation[0] + "년 " + reservation[1] + "월 " + reservation[2] + "일 " + reservation[3] + "시 " + reservation[4] + "분 " + clinicName);
+          i++;
         }
         adapter.notifyDataSetChanged();
       }
@@ -643,21 +660,4 @@ public class ConnectActivity extends Activity {
             .show();
     return false;
   }
-
-  private final AdapterView.OnItemClickListener roomListClickListener =
-          new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-              String roomId = connectInfo.getDatetime()+"_"+connectInfo.getDocUid();
-              /*String roomId = ((TextView) view).getText().toString().replace(" ","")
-                      .replace("년","")
-                      .replace("월","")
-                      .replace("일","")
-                      .replace("시","")x
-                      .replace("분","");*/
-              connectToRoom(roomId, false, false, false, 0);
-            }
-          };
 }
-
-

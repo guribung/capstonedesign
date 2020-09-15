@@ -41,6 +41,7 @@ public class CallEndActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(CallEndActivity.this, ConnectActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
