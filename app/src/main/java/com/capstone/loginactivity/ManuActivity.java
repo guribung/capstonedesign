@@ -39,7 +39,7 @@ public class ManuActivity extends AppCompatActivity {
         DatabaseReference ref = database.child("Users");
         Query userQuery = ref.orderByChild("uid").equalTo(firebaseAuth.getUid());
         final User userdata = new User();
-        userQuery.addValueEventListener(new ValueEventListener() {
+        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot: snapshot.getChildren()) {

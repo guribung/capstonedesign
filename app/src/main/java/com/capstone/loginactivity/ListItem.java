@@ -1,7 +1,6 @@
 package com.capstone.loginactivity;
 
 import android.content.Context;
-import android.text.Editable;
 import android.text.TextWatcher;
 
 public class ListItem {
@@ -13,25 +12,6 @@ public class ListItem {
     private Context context;
     public TextWatcher textWatcher;
     public String mName, mValue;
-    public void ListItem(){
-        mValue = "";
-        textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mValue = s.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        };
-    };
 
 
 

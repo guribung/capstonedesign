@@ -89,12 +89,6 @@ FirebaseAuth firebaseAuth;
           userdata.setName(String.valueOf(postSnapshot.child("name").getValue(String.class)));
           userdata.setUid(String.valueOf(postSnapshot.child("uid").getValue(String.class)));
         }
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-          if(userdata.member.equals("환자")){
-            disconnectButton.setVisibility(View.INVISIBLE);
-          }
-        }
       }
       @Override
       public void onCancelled(@NonNull DatabaseError error) {
@@ -107,10 +101,18 @@ FirebaseAuth firebaseAuth;
       public void onClick(View view) {
         callEvents.onCallHangUp();
         String[] callData = contactView.getText().toString().split("_");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+          if(userdata.member.equals("의사")){
+            Intent intent = new Intent(getActivity(),CallEndActivity.class);
+            intent.putExtra("contact",contactView.getText().toString());
+            startActivity(intent);
+          }
+          else{
+            getActivity().finish();
+          }
+        }
 
-        Intent intent = new Intent(getActivity(),CallEndActivity.class);
-        intent.putExtra("contact",contactView.getText().toString());
-        startActivity(intent);
 
       }
     });

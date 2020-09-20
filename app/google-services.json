@@ -21,16 +21,25 @@
             "package_name": "com.capstone.loginactivity",
             "certificate_hash": "2d4ad2e99ef3ad94e6ad985bae8dc485a485d2cc"
           }
+        },
+        {
+          "client_id": "925961908211-g8qohjcguubfn5vfbmd7e2424ui1t1ir.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBSQ8zBrYlmnF0hsawqMiQaAmezOh6rqYI"
+          "current_key": "AIzaSyAATyrKZdWdJvBsTXPndRL_zN3fOVWttoA"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925961908211-g8qohjcguubfn5vfbmd7e2424ui1t1ir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     },
@@ -41,15 +50,25 @@
           "package_name": "com.capstone.videotelephony"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "925961908211-g8qohjcguubfn5vfbmd7e2424ui1t1ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBSQ8zBrYlmnF0hsawqMiQaAmezOh6rqYI"
+          "current_key": "AIzaSyAATyrKZdWdJvBsTXPndRL_zN3fOVWttoA"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "925961908211-g8qohjcguubfn5vfbmd7e2424ui1t1ir.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

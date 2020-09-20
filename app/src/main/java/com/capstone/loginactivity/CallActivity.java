@@ -335,8 +335,8 @@ public class CallActivity extends Activity implements AppRTCClient.SignalingEven
 
     // Create connection client. Use DirectRTCClient if room name is an IP otherwise use the
     // standard WebSocketRTCClient.
-   /* if("firebase".equals(roomId)) {
-      appRtcClient = new FirebaseRTCClient(this);
+    /*if("firebase".equals(roomId)) {
+      appRtcClient = new FirebaseRTCClient(this,roomId);
     } else if (loopback || !DirectRTCClient.IP_PATTERN.matcher(roomId).matches()) {
       appRtcClient = new WebSocketRTCClient(this);
     } else {
