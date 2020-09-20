@@ -4,9 +4,6 @@
     package="com.capstone.loginactivity">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -38,7 +35,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".WebViewActivity"></activity>
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
@@ -47,8 +44,9 @@
             android:name="com.google.android.wearable.standalone"
             android:value="true" />
 
-        <activity android:name=".PrescriptionActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".PrescriptionActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".EditInfoActivity" />
 
         <service

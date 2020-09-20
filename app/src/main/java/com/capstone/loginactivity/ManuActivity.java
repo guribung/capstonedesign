@@ -83,7 +83,7 @@ public class ManuActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ManuActivity.this, ConnectActivity.class);
+                Intent intent = new Intent(ManuActivity.this, CalllistActivity.class);
                 startActivity(intent);
 
             }

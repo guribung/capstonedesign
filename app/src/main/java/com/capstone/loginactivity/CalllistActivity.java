@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class CalllistActivity extends AppCompatActivity {
-    private ListView listView;
+    private ListView roomListView;
     private ArrayAdapter adapter;
     private ArrayList<String> listitem;
     private FirebaseAuth firebaseAuth;
@@ -31,13 +31,31 @@ public class CalllistActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calllist);
-        listView = findViewById(R.id.call_listview);
-        empty = findViewById(R.id.cEmpty);
-        textA = findViewById(R.id.textC);
+        setContentView(R.layout.activity_connect);
+        ArrayList<String> dateTime = new ArrayList<>();
+        ArrayList<String> docUid = new ArrayList<>();
+        roomListView = findViewById(R.id.room_listview);
+        roomListView.setEmptyView(findViewById(android.R.id.empty));
+        roomListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String roomId = dateTime.get(i) + "_" + docUid.get(i);
+              /*String roomId = ((TextView) view).getText().toString().replace(" ","")
+                      .replace("년","")
+                      .replace("월","")
+                      .replace("일","")
+                      .replace("시","")x
+                      .replace("분","");*/
+                Intent intent = new Intent(CalllistActivity.this, WebViewActivity.class);
+                intent.putExtra("contact",roomId);
+            }
+        });
+        registerForContextMenu(roomListView);
+
+
         listitem = new ArrayList<>();
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listitem);
-        listView.setAdapter(adapter);
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listitem);
+        roomListView.setAdapter(adapter);
 
         firebaseAuth = FirebaseAuth.getInstance();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -48,14 +66,16 @@ public class CalllistActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     // TODO: handle the post
+                    int i = 0;
+                    dateTime.add(postSnapshot.child("datetime").getValue(String.class).replace(" ", ""));
+                    docUid.add(postSnapshot.child("doctorUid").getValue(String.class));
                     String[] reservation = postSnapshot.child("datetime").getValue(String.class).split(" ");
-                    String name =  postSnapshot.child("name").getValue(String.class);
-                    adapter.add(reservation[0]+"년 "+reservation[1]+"월 "+reservation[2]+"일 "+reservation[3]+"시 "+reservation[4]+"분 "+name);
-                    Toast.makeText(CalllistActivity.this, "ssucess "+ name,Toast.LENGTH_SHORT).show();
+                    String name = postSnapshot.child("name").getValue(String.class);
+                    adapter.add(reservation[0] + "년 " + reservation[1] + "월 " + reservation[2] + "일 " + reservation[3] + "시 " + reservation[4] + "분 " + name);
+                    i++;
                 }
-                empty.setVisibility(View.INVISIBLE);
                 adapter.notifyDataSetChanged();
             }
 
@@ -70,38 +90,21 @@ public class CalllistActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     // TODO: handle the post
+                    int i = 0;
+                    dateTime.add(postSnapshot.child("datetime").getValue(String.class).replace(" ", ""));
+                    docUid.add(postSnapshot.child("doctorUid").getValue(String.class));
                     String[] reservation = postSnapshot.child("datetime").getValue(String.class).split(" ");
-                    String clinicName =  postSnapshot.child("clinicName").getValue(String.class);
-                    adapter.add(reservation[0]+"년 "+reservation[1]+"월 "+reservation[2]+"일 "+reservation[3]+"시 "+reservation[4]+"분 "+clinicName);
-                    Toast.makeText(CalllistActivity.this, "ssucess "+ clinicName,Toast.LENGTH_SHORT).show();
+                    String clinicName = postSnapshot.child("clinicName").getValue(String.class);
+                    adapter.add(reservation[0] + "년 " + reservation[1] + "월 " + reservation[2] + "일 " + reservation[3] + "시 " + reservation[4] + "분 " + clinicName);
+                    i++;
                 }
-                empty.setVisibility(View.INVISIBLE);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                TextView textView = view.findViewById(android.R.id.text1);
-                String text = textView.getText().toString();
-
-                String[] array = text.split(" ");
-                String name = array[0];
-                String phone = array[1];
-                Intent intent = new Intent(CalllistActivity.this, ConnectActivity.class);
-                startActivity(intent);
-
-
-
-                finish();
 
             }
         });

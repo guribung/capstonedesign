@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "925961908211-9rmgtoa991cn3i5r96df6abifsfc8m6g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.loginactivity",
+            "certificate_hash": "981bc1129b56857e9f63eef64e56dbc994e36d10"
+          }
+        },
+        {
           "client_id": "925961908211-uhqqvcbtj63c5g9bcoa5ia8j92jc9k1c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -29,7 +37,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAATyrKZdWdJvBsTXPndRL_zN3fOVWttoA"
+          "current_key": "AIzaSyBxaapniImew0tgMzViR9YjM2LQa6W97FA"
         }
       ],
       "services": {
@@ -58,7 +66,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAATyrKZdWdJvBsTXPndRL_zN3fOVWttoA"
+          "current_key": "AIzaSyBxaapniImew0tgMzViR9YjM2LQa6W97FA"
         }
       ],
       "services": {
