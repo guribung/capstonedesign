@@ -23,14 +23,6 @@
           }
         },
         {
-          "client_id": "925961908211-uhqqvcbtj63c5g9bcoa5ia8j92jc9k1c.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.capstone.loginactivity",
-            "certificate_hash": "2d4ad2e99ef3ad94e6ad985bae8dc485a485d2cc"
-          }
-        },
-        {
           "client_id": "925961908211-g8qohjcguubfn5vfbmd7e2424ui1t1ir.apps.googleusercontent.com",
           "client_type": 3
         }

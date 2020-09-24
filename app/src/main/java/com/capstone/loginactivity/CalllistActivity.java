@@ -48,6 +48,8 @@ public class CalllistActivity extends AppCompatActivity {
                       .replace("분","");*/
                 Intent intent = new Intent(CalllistActivity.this, WebViewActivity.class);
                 intent.putExtra("contact",roomId);
+                startActivity(intent);
+                finish();
             }
         });
         registerForContextMenu(roomListView);
