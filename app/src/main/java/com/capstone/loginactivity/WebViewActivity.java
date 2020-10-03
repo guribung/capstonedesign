@@ -1,14 +1,14 @@
 package com.capstone.loginactivity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class WebViewActivity extends AppCompatActivity {
 
@@ -23,14 +23,25 @@ public class WebViewActivity extends AppCompatActivity {
         Intent getIntent = getIntent();
         String roomId = getIntent.getStringExtra("contact");
         webView = findViewById(R.id.web_view);
-        webView.setWebViewClient(new WebViewClient());
         webSet = webView.getSettings();
         webSet.setJavaScriptEnabled(true);
-        webSet.setMediaPlaybackRequiresUserGesture(true);
+        webSet.setLoadsImagesAutomatically(true);
+        webSet.setDomStorageEnabled(true);
         webSet.setAllowContentAccess(true);
-        webView.loadUrl("appr.tc/r/"+roomId);
+        webSet.setAppCacheEnabled(true);
+        webSet.setMediaPlaybackRequiresUserGesture(false);
+        webSet.setAllowContentAccess(true);
+        webSet.setAllowFileAccessFromFileURLs(true);
+        webSet.setAllowUniversalAccessFromFileURLs(true);
+        webSet.setUserAgentString(webView.getSettings().getUserAgentString() + " Android_Mobile");
         endButton = findViewById(R.id.end_button);
-        webView.setWebChromeClient(new WebChromeClient(){});
+        webView.setWebChromeClient(new WebChromeClient(){
+            @Override
+            public void onPermissionRequest(PermissionRequest request) {
+                    request.grant(request.getResources());
+            }
+        });
+
 
         webView.loadUrl("https://appr.tc/r/"+roomId);
         endButton.setOnClickListener(v -> {

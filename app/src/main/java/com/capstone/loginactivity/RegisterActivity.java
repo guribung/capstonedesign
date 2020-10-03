@@ -39,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         //액션 바 등록하기
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("회원가입");
