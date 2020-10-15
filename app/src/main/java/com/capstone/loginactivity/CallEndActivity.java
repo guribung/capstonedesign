@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class CallEndActivity extends AppCompatActivity {
 
-    private Button reConnect, callEnd, addRes;
+    private Button reConnect, callEnd, addPrescription;
     private FirebaseAuth firebaseAuth;
     private final ConnectInfo connectInfo = new ConnectInfo();
     @Override
@@ -28,7 +27,7 @@ public class CallEndActivity extends AppCompatActivity {
         setContentView(R.layout.activity_call_end);
         reConnect = findViewById(R.id.recall);
         callEnd = findViewById(R.id.callEnd);
-        addRes = findViewById(R.id.addRes);
+        addPrescription = findViewById(R.id.addPrescription);
         Intent getIntent = getIntent();
         firebaseAuth = FirebaseAuth.getInstance();
         String contactId = getIntent.getStringExtra("contact");
@@ -39,7 +38,7 @@ public class CallEndActivity extends AppCompatActivity {
         reConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CallEndActivity.this, ConnectActivity.class);
+                Intent intent = new Intent(CallEndActivity.this, CalllistActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -49,7 +48,6 @@ public class CallEndActivity extends AppCompatActivity {
         callEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(CallEndActivity.this, "intent:"+datetime, Toast.LENGTH_SHORT).show();
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference ref = database.child("Reservation");
                 Query doctorQuery = ref.orderByChild("doctorUid").equalTo(firebaseAuth.getUid());
@@ -62,9 +60,8 @@ public class CallEndActivity extends AppCompatActivity {
                             // TODO: handle the post
                             connectInfo.setDatetime(postSnapshot.child("datetime").getValue(String.class).replace(" ",""));
                             connectInfo.setDocUid(postSnapshot.child("doctorUid").getValue(String.class));
-                            if (doctorUid.equals(connectInfo.docUid) && datetime.equals(connectInfo.datetime))
+                            if (doctorUid.equals(connectInfo.getDocUid()) && datetime.equals(connectInfo.getDatetime()))
                                 postSnapshot.getRef().removeValue();
-
 
                         }
                     }
@@ -72,11 +69,10 @@ public class CallEndActivity extends AppCompatActivity {
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {}
                 });
-                finish();
             }
         });
 
-        addRes.setOnClickListener(new View.OnClickListener() {
+        addPrescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -89,10 +85,19 @@ public class CallEndActivity extends AppCompatActivity {
 
                         for (DataSnapshot postSnapshot: snapshot.getChildren()) {
                             // TODO: handle the post
+                            connectInfo.setIntime(postSnapshot.child("datetime").getValue(String.class));
                             connectInfo.setDatetime(postSnapshot.child("datetime").getValue(String.class).replace(" ",""));
                             connectInfo.setDocUid(postSnapshot.child("doctorUid").getValue(String.class));
+                            connectInfo.setPatientUid(postSnapshot.child("patientUid").getValue(String.class));
+                            connectInfo.setClinicName(postSnapshot.child("clinicName").getValue(String.class));
                             if (doctorUid.equals(connectInfo.docUid) && datetime.equals(connectInfo.datetime)){
                                 postSnapshot.getRef().removeValue();
+                                Intent intent = new Intent(CallEndActivity.this, PrescriptionActivity.class);
+                                intent.putExtra("patientUid",connectInfo.getPatientUid());
+                                intent.putExtra("clinicName",connectInfo.getClinicName());
+                                intent.putExtra("datetime",connectInfo.getIntime());
+                                startActivity(intent);
+                                finish();
                             }
                         }
                     }
@@ -102,10 +107,6 @@ public class CallEndActivity extends AppCompatActivity {
 
                     }
                 });
-
-                Intent intent = new Intent(CallEndActivity.this, AddDateActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
     }

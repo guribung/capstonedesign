@@ -20,8 +20,8 @@ public class AddDateActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 String date = "";
-                if (month<10) {
-                    if (dayOfMonth<10){
+                if (month<9) {
+                    if (dayOfMonth<9){
                         date = year+" 0"+(month+1)+" 0"+dayOfMonth;
                     }
                     else{
@@ -29,7 +29,7 @@ public class AddDateActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    if(dayOfMonth<10){
+                    if(dayOfMonth<9){
                         date = year+" "+(month+1)+" 0"+dayOfMonth;
                     }
                     else{

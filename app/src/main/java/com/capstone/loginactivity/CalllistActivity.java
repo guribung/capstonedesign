@@ -7,7 +7,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,10 +30,10 @@ public class CalllistActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_connect);
+        setContentView(R.layout.activity_calllist);
         ArrayList<String> dateTime = new ArrayList<>();
         ArrayList<String> docUid = new ArrayList<>();
-        roomListView = findViewById(R.id.room_listview);
+        roomListView = findViewById(R.id.call_listview);
         roomListView.setEmptyView(findViewById(android.R.id.empty));
         roomListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -1,6 +1,10 @@
 package com.capstone.loginactivity;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.media.projection.MediaProjectionManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.webkit.PermissionRequest;
 import android.webkit.WebChromeClient;
@@ -22,6 +26,8 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_web_view);
         Intent getIntent = getIntent();
         String roomId = getIntent.getStringExtra("contact");
+        MediaProjectionManager mpm = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+        //startActivityForResult(mpm.createScreenCaptureIntent(),);
         webView = findViewById(R.id.web_view);
         webSet = webView.getSettings();
         webSet.setJavaScriptEnabled(true);
@@ -36,9 +42,12 @@ public class WebViewActivity extends AppCompatActivity {
         webSet.setUserAgentString(webView.getSettings().getUserAgentString() + " Android_Mobile");
         endButton = findViewById(R.id.end_button);
         webView.setWebChromeClient(new WebChromeClient(){
+            @TargetApi(Build.VERSION_CODES.Q)
             @Override
             public void onPermissionRequest(PermissionRequest request) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     request.grant(request.getResources());
+                }
             }
         });
 

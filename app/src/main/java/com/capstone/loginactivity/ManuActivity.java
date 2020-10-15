@@ -108,7 +108,7 @@ public class ManuActivity extends AppCompatActivity {
         });
 
         testBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(ManuActivity.this, PrescriptionActivity.class);
+            Intent intent = new Intent(ManuActivity.this, PharmacyPrescriptionlistActivity.class);
             startActivity(intent);
         });
     }

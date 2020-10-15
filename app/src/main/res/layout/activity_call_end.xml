@@ -27,12 +27,12 @@
         app:layout_constraintTop_toBottomOf="@+id/recall" />
 
     <Button
-        android:id="@+id/addRes"
+        android:id="@+id/addPrescription"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="152dp"
         android:layout_marginTop="46dp"
-        android:text="예약 추가"
+        android:text="처방전 작성"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/callEnd" />
 </androidx.constraintlayout.widget.ConstraintLayout>

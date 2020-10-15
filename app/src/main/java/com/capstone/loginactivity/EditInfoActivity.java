@@ -82,7 +82,7 @@ public class EditInfoActivity extends AppCompatActivity {
         setPhone.setOnClickListener(v -> {
             String phone = String.valueOf(editPhone.getText());
             boolean phone_check = Pattern.matches("^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-\\d{4}$",phone);
-            if (phone_check&&phone.equals("")){
+            if (phone_check&&!phone.equals("")){
                 ref.child(firebaseAuth.getUid()).child("phone").setValue(phone);
                 Toast.makeText(EditInfoActivity.this, "전화번호가 변경되었습니다", Toast.LENGTH_SHORT).show();
                 Log.d(TAG,"User phone updated");

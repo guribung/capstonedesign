@@ -48,9 +48,8 @@ public class EditAdapter extends BaseAdapter{
             convertView = inflater.inflate(R.layout.user_item_list, parent, false);
         }
 
-        EditText editText = convertView.findViewById(R.id.ValueEditText);
-        ListItem Eitem = listitems.get(position);
-        Eitem.setMedicine(editText.getText().toString());
+        EditText editText = convertView.findViewById(R.id.medicine_name);
+        listitems.get(position).setMedicine(editText.getText().toString());
 
         Button deleteButton = convertView.findViewById(R.id.delBtn);
 
@@ -60,17 +59,9 @@ public class EditAdapter extends BaseAdapter{
         TextView textView4 = convertView.findViewById(R.id.ftv4);
 
         EditText editText1 = convertView.findViewById(R.id.fet1);
-        editText1.setText(" ");
-        Eitem.setDayDosage(editText1.getText().toString());
         EditText editText2 = convertView.findViewById(R.id.fet2);
-        editText2.setText(" ");
-        Eitem.setTimeDosage(editText2.getText().toString());
         EditText editText3 = convertView.findViewById(R.id.fet3);
-        editText3.setText(" ");
-        Eitem.setFreq(editText3.getText().toString());
         EditText editText4 = convertView.findViewById(R.id.fet4);
-        editText4.setText(" ");
-        Eitem.setSum(editText4.getText().toString());
 
         deleteButton.setOnClickListener(v -> {
             listitems.remove(position);
