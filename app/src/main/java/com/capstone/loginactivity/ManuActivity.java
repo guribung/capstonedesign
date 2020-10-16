@@ -57,10 +57,24 @@ public class ManuActivity extends AppCompatActivity {
                     });
 
                 }
-                if(userdata.member.equals("의사")){
+                if (userdata.member.equals("환자")){
+                    infoBtn.setVisibility(View.VISIBLE);
+                    callBtn.setVisibility(View.VISIBLE);
+                    resBtn.setVisibility(View.VISIBLE);
+                    addresBtn.setText("배송정보");
                     addresBtn.setVisibility(View.VISIBLE);
                 }
-
+                else if(userdata.member.equals("의사")){
+                    infoBtn.setVisibility(View.VISIBLE);
+                    callBtn.setVisibility(View.VISIBLE);
+                    resBtn.setVisibility(View.VISIBLE);
+                    addresBtn.setVisibility(View.VISIBLE);
+                }
+                else if(userdata.member.equals("약사")){
+                    infoBtn.setVisibility(View.VISIBLE);
+                    callBtn.setVisibility(View.VISIBLE);
+                    callBtn.setText("처방전 목록");
+                }
             }
 
             @Override
@@ -70,40 +84,36 @@ public class ManuActivity extends AppCompatActivity {
         });
 
 
-        infoBtn.setOnClickListener(new View.OnClickListener(){
+        infoBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(ManuActivity.this, InfoActivity.class);
+            startActivity(intent);
 
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ManuActivity.this, InfoActivity.class);
-                startActivity(intent);
-
-            }
         });
-        callBtn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ManuActivity.this, CalllistActivity.class);
-                startActivity(intent);
-
+        callBtn.setOnClickListener(v -> {
+            if (userdata.member.equals("의사") || userdata.member.equals("환자")) {
+            Intent intent = new Intent(ManuActivity.this, CalllistActivity.class);
+            startActivity(intent);
             }
-        });
-        resBtn.setOnClickListener(new View.OnClickListener(){
+            else if (userdata.member.equals("약사")){
+                Intent intent = new Intent(ManuActivity.this, PharmacyPrescriptionlistActivity.class);
+                startActivity(intent);
+            }
 
-            @Override
-            public void onClick(View v) {
+        });
+        resBtn.setOnClickListener(v -> {
                 Intent intent = new Intent(ManuActivity.this, ReservationActivity.class);
                 startActivity(intent);
 
-            }
-        });
-        addresBtn.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
+        });
+        addresBtn.setOnClickListener(v -> {
+            if (userdata.member.equals("의사")) {
                 Intent intent = new Intent(ManuActivity.this, AddDateActivity.class);
                 startActivity(intent);
-
+            }
+            else if (userdata.member.equals("환자")){
+                Intent intent = new Intent(ManuActivity.this, DeliveryCheckActivity.class);
+                startActivity(intent);
             }
         });
 

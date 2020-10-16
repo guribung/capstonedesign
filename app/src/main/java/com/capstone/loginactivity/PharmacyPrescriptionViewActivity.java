@@ -27,6 +27,8 @@ public class PharmacyPrescriptionViewActivity extends AppCompatActivity {
         String admNum = getIntent().getStringExtra("adNum");
         String mCode = getIntent().getStringExtra("code");
         String medicineList = getIntent().getStringExtra("medicine");
+        String scriptName = getIntent().getStringExtra("scriptName");
+        String patientUid = getIntent().getStringExtra("patientUid");
         MedicineAdapter adapter = new MedicineAdapter();
         name = findViewById(R.id.name_phar);
         name.setText(mName);
@@ -46,6 +48,8 @@ public class PharmacyPrescriptionViewActivity extends AppCompatActivity {
 
         addbtn.setOnClickListener(v -> {
             Intent intent = new Intent(PharmacyPrescriptionViewActivity.this,DeliveryInfoActivity.class);
+            intent.putExtra("scriptName",scriptName);
+            intent.putExtra("patientUid",patientUid);
             startActivity(intent);
             finish();
         });

@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/met1"
                 android:hint=""
+                android:gravity="center"
                 android:text=""/>
         </LinearLayout>
         <LinearLayout
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/met2"
+                android:gravity="center"
                 android:text=""/>
         </LinearLayout>
         <LinearLayout
@@ -73,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/met3"
+                android:gravity="center"
                 android:text=""/>
         </LinearLayout>
         <LinearLayout
@@ -90,6 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/met4"
+                android:gravity="center"
                 android:text=""/>
         </LinearLayout>
     </LinearLayout>

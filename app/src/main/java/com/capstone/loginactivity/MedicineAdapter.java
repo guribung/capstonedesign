@@ -48,7 +48,7 @@ public class MedicineAdapter extends BaseAdapter {
             TextView textView3 = convertView.findViewById(R.id.met3);
             TextView textView4 = convertView.findViewById(R.id.met4);
             ListItem item = listitems.get(position);
-            eName.setText(item.getMedicine());
+            eName.setText("약이름 : "+ item.getMedicine());
             textView1.setText(item.getDayDosage());
             textView2.setText(item.getTimeDosage());
             textView3.setText(item.getFreq());

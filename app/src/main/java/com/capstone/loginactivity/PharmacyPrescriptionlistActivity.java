@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +31,7 @@ public class PharmacyPrescriptionlistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pharmacy_prescriptionlist);
         ArrayList<String> dateTime = new ArrayList<>();
-        ArrayList<String> docUid = new ArrayList<>();
+        ArrayList<String> patientUid = new ArrayList<>();
         ArrayList<String> nameList = new ArrayList<>();
         ArrayList<String> adNumList = new ArrayList<>();
         ArrayList<String> codeList = new ArrayList<>();
@@ -42,11 +41,12 @@ public class PharmacyPrescriptionlistActivity extends AppCompatActivity {
         preListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(PharmacyPrescriptionlistActivity.this, adNumList.get(i), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(PharmacyPrescriptionlistActivity.this, PharmacyPrescriptionViewActivity.class);
+                intent.putExtra("scriptName",dateTime.get(i));
                 intent.putExtra("name",nameList.get(i));
                 intent.putExtra("adNum",adNumList.get(i));
                 intent.putExtra("code",codeList.get(i));
+                intent.putExtra("patientUid",patientUid.get(i));
                 intent.putExtra("medicine",medicineList.get(i));
                 startActivity(intent);
                 finish();
@@ -68,8 +68,8 @@ public class PharmacyPrescriptionlistActivity extends AppCompatActivity {
 
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     // TODO: handle the post
-                    docUid.add(postSnapshot.child("doctorUid").getValue(String.class));
-                    dateTime.add(postSnapshot.child("datetime").getValue(String.class));
+                    patientUid.add(postSnapshot.child("patientUid").getValue(String.class));
+                    dateTime.add(postSnapshot.child("preId").getValue(String.class));
                     nameList.add(postSnapshot.child("name").getValue(String.class));
                     adNumList.add(postSnapshot.child("admNum").getValue(String.class));
                     codeList.add(postSnapshot.child("code").getValue(String.class));

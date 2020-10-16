@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="15dp"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/name_phar"/>
     </LinearLayout>
     <LinearLayout
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textSize="15dp"
-            android:gravity="center"
+            android:gravity="left"
             android:id="@+id/reg_num_phar"/>
     </LinearLayout>
     <LinearLayout
@@ -56,7 +56,7 @@
             android:layout_height="match_parent"
             android:text=" 질병분류코드:"
             android:textSize="10dp"
-            android:gravity="center"/>
+            android:gravity="left"/>
 
         <TextView
             android:layout_width="match_parent"
