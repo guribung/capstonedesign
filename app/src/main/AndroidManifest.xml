@@ -40,9 +40,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PharmacyPrescriptionlistActivity"></activity>
+        <activity android:name=".DeliveryInfoActivity"></activity>
+        <activity android:name=".PharmacyPrescriptionViewActivity" />
+        <activity android:name=".PharmacyPrescriptionlistActivity" />
         <activity android:name=".SetPharmacyActivity" />
-        <activity android:name=".WebViewActivity"></activity>
+        <activity android:name=".WebViewActivity" />
         <activity
             android:name=".PrescriptionActivity"
             android:windowSoftInputMode="adjustPan" />

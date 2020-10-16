@@ -6,16 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class EditAdapter extends BaseAdapter{
-
-    int resourceId ;
+public class MedicineAdapter extends BaseAdapter {
     private ArrayList<ListItem> listitems = new ArrayList<>();
 
     @Override
@@ -44,26 +41,33 @@ public class EditAdapter extends BaseAdapter{
         final Context context = parent.getContext();
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.user_item_list, parent, false);
+            convertView = inflater.inflate(R.layout.medicine_item_list, parent, false);
+            TextView eName = convertView.findViewById(R.id.premedicine_name);
+            TextView textView1 = convertView.findViewById(R.id.met1);
+            TextView textView2 = convertView.findViewById(R.id.met2);
+            TextView textView3 = convertView.findViewById(R.id.met3);
+            TextView textView4 = convertView.findViewById(R.id.met4);
+            ListItem item = listitems.get(position);
+            eName.setText(item.getMedicine());
+            textView1.setText(item.getDayDosage());
+            textView2.setText(item.getTimeDosage());
+            textView3.setText(item.getFreq());
+            textView4.setText(item.getSum());
         }
-
-        EditText editText = convertView.findViewById(R.id.medicine_name);
-        listitems.get(position).setMedicine(editText.getText().toString());
-
-        Button deleteButton = convertView.findViewById(R.id.delBtn);
-        deleteButton.setOnClickListener(v -> {
-            listitems.remove(position);
-            notifyDataSetChanged();
-        });
-
-
 
         return convertView;
     }
 
-    public void addItem() {
+    public void addItem(String medicineList) {
+        String[] medicineInfo = medicineList.split("_");
         ListItem item = new ListItem();
+        item.setMedicine(medicineInfo[0]);
+        item.setDayDosage(medicineInfo[1]);
+        item.setTimeDosage(medicineInfo[2]);
+        item.setFreq(medicineInfo[3]);
+        item.setSum(medicineInfo[4]);
         listitems.add(item);
+
     }
 
 

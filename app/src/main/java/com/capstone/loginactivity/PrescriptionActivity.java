@@ -81,6 +81,7 @@ public class PrescriptionActivity extends AppCompatActivity{
             hashMap.put("clinicName", clinicName);
             hashMap.put("doctorUid", firebaseAuth.getUid());
             hashMap.put("patientUid", patientUid);
+            hashMap.put("preId",firebaseAuth.getUid() + "_" + datetime);
             String medi = "";
             for (String medicine : medicineList) {
                 medi = medi + medicine + "%";
